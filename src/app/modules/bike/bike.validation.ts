@@ -12,8 +12,8 @@ const createBikeValidationSchema = z.object({
         year: z.number(),
         model: z.string().trim(),
         brand: z.string().trim(),
-        isAvailable: z.boolean().optional(),
-        isDeleted: z.boolean().optional(),
+        isAvailable: z.boolean().optional().default(true),
+        isDeleted: z.boolean().optional().default(false),
     }),
 });
 

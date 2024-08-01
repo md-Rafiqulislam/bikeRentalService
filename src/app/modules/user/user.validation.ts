@@ -12,7 +12,7 @@ const createUserValidationSchema = z.object({
         phone: z.string().trim(),
         address: z.string().trim(),
         role: z.enum(['admin', 'user']),
-        isDeleted: z.boolean().optional(),
+        isDeleted: z.boolean().optional().default(false),
     }),
 });
 
