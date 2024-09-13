@@ -10,4 +10,8 @@ dotenv.config({path: path.join(process.cwd(), '.env')});
 export default {
     port: process.env.PORT,
     databaseUrl: process.env.DATABASE_URL,
+    accessTokenSecret: process.env.ACCESS_TOKEN_SECRET,
+    refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
+    accessTokenExpires: process.env.ACCESS_TOKEN_EXPIRES_IN,
+    refreshTokenExpires: process.env.REFRESH_TOKEN_EXPIRES_IN,
 };

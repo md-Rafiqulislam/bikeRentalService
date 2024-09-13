@@ -1,11 +1,15 @@
 
 // all the imports here
-import { ObjectId } from "mongoose"
+import {Types } from "mongoose"
 
 // booking type
 export type TBooking = {
-    bikeId: string;
+    userId?: Types.ObjectId;
+    bikeId: Types.ObjectId;
     startTime: string;
+    returnTime?: string;
+    totalCost?: Number;
+    isReturned?: Boolean;
 };
 
 

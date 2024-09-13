@@ -15,11 +15,13 @@ app.use(cors());
 
 // the test route
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, in the World of Traveles.welcom to bike rental service...');
+    res.send('Hello, in the World of Traveles. Welcome to bike rental service...');
   });
 
-// use the routes
-app.use('/api,', router)
+
+
+// use all the routes
+app.use('/api', router)
 
 // global error handler
 app.use(globalErrorHandler);

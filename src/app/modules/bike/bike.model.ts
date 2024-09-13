@@ -9,18 +9,22 @@ const bikeSchema = new Schema<TBike>({
     name: {
         type: String,
         required: [true, 'Bike name is required.'],
+        trim: true,
     },
     description: {
         type: String,
         required: [true, 'Bike description is required.'],
+        trim: true,
     },
     pricePerHour: {
         type: Number,
-        required: [true, 'per hour bike rent price is required.'],
+        required: [true, 'Per hour bike rent price is required.'],
+        min: [0, 'Price per hour must be a positive number.'],
     },
     cc: {
         type: Number,
         required: [true, 'Bike cc is required.'],
+        min: [50, 'Bike cc must be 50 or more than that.'],
     },
     year: {
         type: Number,
@@ -28,15 +32,16 @@ const bikeSchema = new Schema<TBike>({
     model: {
         type: String,
         required: [true, 'Bike model is required.'],
+        trim: true,
     },
     brand: {
         type: String,
         required: [true, 'Bike brand name is required.'],
+        trim: true,
     },
     isAvailable: {
         type: Boolean,
         default: true,
-        requierd: [true, 'Bike is available or not message required.'],
     },
     isDeleted: {
         type: Boolean,

@@ -12,10 +12,6 @@ async function main() {
 		// connect the app to the mongodb data base
 		await mongoose.connect(config.databaseUrl as string);
 
-		// the test route
-		// app.get('/', (req: Request, res: Response) => {
-		// 	res.send('Hello, in the World of Traveles.welcom to bike rental service...');
-		//   });
 
 		// running the application
 		app.listen(config.port, () => {

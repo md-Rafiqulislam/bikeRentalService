@@ -1,18 +1,25 @@
 
+// all the roles
+export enum Role {
+    Admin = 'admin',
+    User = 'user',
+}
+
+
 // role type
 type TRole = {
-    role: 'admin' | 'user';
+    role: Role;
 };
 
 // user type for sign up
-export type TUserSignup = {
+export type TUser = {
     name: string;
     email: string;
     password: string;
     phone: string;
     address: string;
     role: TRole;
-    isDeleted: boolean;
+    isDeleted?: boolean;
 };
 
 
