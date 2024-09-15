@@ -17,19 +17,19 @@ const auth = (receivedRole: string) => {
 
         // if not send the token
         if(!token) {
-            throw new AppError(StatusCodes.UNAUTHORIZED, 'you are not authorized.');
+            throw new AppError(StatusCodes.UNAUTHORIZED, 'You have no access to this route.');
         }
 
         // verify access token
         jwt.verify(token, config.accessTokenSecret as string, function(error, decoded) {
             if (error) {
-                throw new AppError(StatusCodes.UNAUTHORIZED, 'you are not authorized.');
+                throw new AppError(StatusCodes.UNAUTHORIZED, 'You have no access to this route.');
             }
 
             const role = (decoded as JwtPayload).userRole;
 
             if (receivedRole && receivedRole !== role) {
-                throw new AppError(StatusCodes.UNAUTHORIZED, 'you are not authorized.');
+                throw new AppError(StatusCodes.UNAUTHORIZED, 'You have no access to this route.');
             }
 
             // set user to the request

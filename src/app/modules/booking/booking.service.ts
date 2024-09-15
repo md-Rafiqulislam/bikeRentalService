@@ -17,7 +17,7 @@ const rentABikeFormDb = async (bookingPayload: TBooking, userPayload: string) =>
 
     jwt.verify(userPayload, config.accessTokenSecret as string, function (error, decoded) {
         if (error) {
-            throw new AppError(StatusCodes.UNAUTHORIZED, 'you are not authorized.');
+            throw new AppError(StatusCodes.UNAUTHORIZED, 'You have no access to this route.');
         }
 
         const { userEmail } = decoded as JwtPayload;
@@ -27,7 +27,7 @@ const rentABikeFormDb = async (bookingPayload: TBooking, userPayload: string) =>
     const user = await User.findOne({ email });
 
     if (!user) {
-        throw new AppError(StatusCodes.FORBIDDEN, 'user not found.');
+        throw new AppError(StatusCodes.FORBIDDEN, 'Not Found.');
     }
 
     if (user?.isDeleted === true) {
@@ -38,7 +38,7 @@ const rentABikeFormDb = async (bookingPayload: TBooking, userPayload: string) =>
     const bike = await Bike.findById(bikeId);
 
     if (!bike) {
-        throw new AppError(StatusCodes.NOT_FOUND, 'bike not find.');
+        throw new AppError(StatusCodes.NOT_FOUND, 'Not Find.');
     }
 
     if (bike.isDeleted === true) {
@@ -103,7 +103,7 @@ const getAllTheRentalsFromDb = async (payload: string) => {
 
     jwt.verify(payload, config.accessTokenSecret as string, function (error, decoded) {
         if (error) {
-            throw new AppError(StatusCodes.UNAUTHORIZED, 'you are not authorized.');
+            throw new AppError(StatusCodes.UNAUTHORIZED, 'You have no access to this route.');
         }
 
         const { userEmail } = decoded as JwtPayload;

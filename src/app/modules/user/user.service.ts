@@ -37,14 +37,14 @@ const userLoginIntoDb = async (payload: TUserLogin) => {
 
     const userByEmail = await User.findOne({ email });
 
+    if (!userByEmail) {
+        throw new AppError(StatusCodes.NOT_FOUND, 'Not Found');
+    }
 
     if (userByEmail?.isDeleted === true) {
         throw new AppError(StatusCodes.FORBIDDEN, 'This user is deleted.');
     }
 
-    if (!userByEmail) {
-        throw new AppError(StatusCodes.NOT_FOUND, 'This User is not exsist.');
-    }
 
     if (userByEmail.password !== password) {
         throw new AppError(StatusCodes.UNAUTHORIZED, 'The password is not matched.');
@@ -77,7 +77,7 @@ const getUserFromDb = async (payload: string) => {
 
     jwt.verify(payload, config.accessTokenSecret as string, function (error, decoded) {
         if (error) {
-            throw new AppError(StatusCodes.UNAUTHORIZED, 'you are not authorized.');
+            throw new AppError(StatusCodes.UNAUTHORIZED, 'You have no access to this route.');
         }
 
         const { userEmail } = decoded as JwtPayload;
@@ -86,7 +86,7 @@ const getUserFromDb = async (payload: string) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-        throw new AppError(StatusCodes.FORBIDDEN, 'user not found.');
+        throw new AppError(StatusCodes.NOT_FOUND, 'Not Found.');
     }
 
     if (user?.isDeleted === true) {
@@ -104,7 +104,7 @@ const updateUserIntoDb = async (userPayload: Partial<TUser>, tokenPayload: strin
 
     jwt.verify(tokenPayload, config.accessTokenSecret as string, function (error, decoded) {
         if (error) {
-            throw new AppError(StatusCodes.UNAUTHORIZED, 'you are not authorized.');
+            throw new AppError(StatusCodes.UNAUTHORIZED, 'You have no access to this route.');
         }
 
         const { userEmail } = decoded as JwtPayload;
@@ -114,7 +114,7 @@ const updateUserIntoDb = async (userPayload: Partial<TUser>, tokenPayload: strin
     const user = await User.findOne({ email });
 
     if (!user) {
-        throw new AppError(StatusCodes.FORBIDDEN, 'user not found.');
+        throw new AppError(StatusCodes.NOT_FOUND, 'Not Found.');
     }
 
     if (user?.isDeleted === true) {
