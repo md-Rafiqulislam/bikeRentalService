@@ -9,6 +9,8 @@ import jwt from "jsonwebtoken";
 import { User } from "../user/user.model";
 import { Bike } from "../bike/bike.model";
 import { Booking } from "./booking.model";
+import { TUser } from "../user/user.interface";
+import { TBike } from "../bike/bike.interface";
 
 // from data base rent a bike
 const rentABikeFormDb = async (bookingPayload: TBooking, userPayload: string) => {
@@ -71,14 +73,14 @@ const returBikeToTheStore = async (bikeId: string, userPayload: string) => {
     // let returnedData = {} as TBooking;
     const rentedBike = await Booking.findOne({ bikeId });
 
-    const { userId, startTime } = rentedBike;
+    const { userId, startTime } = rentedBike as TBooking;
 
 
     const bike = await Bike.findByIdAndUpdate(bikeId, { isAvailable: true }, { new: true });
 
 
 
-    const { pricePerHour } = bike;
+    const { pricePerHour } = bike as TBike;
 
 
     const now = new Date();
@@ -112,9 +114,9 @@ const getAllTheRentalsFromDb = async (payload: string) => {
 
     const user = await User.findOne({ email });
 
-    const { _id: userId } = user;
+    const { email: userEmail } = user as TUser;
 
-    const rentals = await Booking.find({ userId });
+    const rentals = await Booking.find({ userEmail });
     return rentals;
 }
 
